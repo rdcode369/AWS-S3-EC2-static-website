@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rainy Season Image Gallery</title>
+  <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+  <div class="rain" id="rain"></div>
+  <h2>Monsoon Magic: Rainy Season Gallery - V2</h2>
+  <div class="gallery">
+    <img src="https://rdcode369-demo-bucket1.s3.eu-north-1.amazonaws.com/images/rain1.jpg" alt="Rainy 1">
+    <img src="https://rdcode369-demo-bucket1.s3.eu-north-1.amazonaws.com/images/rain2.jpg" alt="Rainy 2">
+    <img src="https://rdcode369-demo-bucket1.s3.eu-north-1.amazonaws.com/images/rain3.jpg" alt="Rainy 3">
+    <img src="https://rdcode369-demo-bucket1.s3.eu-north-1.amazonaws.com/images/rain4.jpg" alt="Rainy 4">
+    <img src="https://rdcode369-demo-bucket1.s3.eu-north-1.amazonaws.com/images/rain5.jpg" alt="Rainy 5">
+    <img src="https://rdcode369-demo-bucket1.s3.eu-north-1.amazonaws.com/images/rain6.jpg" alt="Rainy 6">
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <button class="close-btn" id="closeBtn">&times;</button>
+      <img id="modalImg" src="" alt="Large View">
+    </div>
+  </div>
+
+  <script>
+    // Rain animation
+    const rain = document.getElementById('rain');
+    const raindropCount = 60;
+    for (let i = 0; i < raindropCount; i++) {
+      const drop = document.createElement('div');
+      drop.className = 'raindrop';
+      drop.style.left = Math.random() * 100 + 'vw';
+      // Slow down animation: increase duration
+      //drop.style.animationDuration = (2.5 + Math.random() * 2.5) + 's';
+      drop.style.animationDuration = (2 + Math.random() * 2) + 's';
+      drop.style.animationDelay = (Math.random() * 2) + 's';
+      drop.style.height = (40 + Math.random() * 40) + 'px';
+      rain.appendChild(drop);
+    }
+
+    // Modal logic
+    const gallery = document.querySelector('.gallery');
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const closeBtn = document.getElementById('closeBtn');
+
+    gallery.addEventListener('click', function(e) {
+      if (e.target.tagName === 'IMG') {
+        modalImg.src = e.target.src.replace('w=400', 'w=1000');
+        modal.classList.add('active');
+      }
+    });
+
+    closeBtn.onclick = () => modal.classList.remove('active');
+    modal.onclick = (e) => {
+      if (e.target === modal) modal.classList.remove('active');
+    };
+  </script>
+</body>
+</html>
